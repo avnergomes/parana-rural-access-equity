@@ -4,7 +4,7 @@
 
 A reproducible spatial equity analysis using open data (IBGE, CNES, INEP, IDR-Paraná) and open tools (Python, GeoPandas, Folium, Matplotlib).
 
-**Live map:** _(will point to `avnergomes.github.io/parana-rural-access-equity` once deployed)_
+**Live map:** [avnergomes.github.io/parana-rural-access-equity](https://avnergomes.github.io/parana-rural-access-equity/)
 
 **Portfolio context:** built as a public-data adaptation of Project 1 from [GEO CAREERS' April 2026 portfolio guide](https://www.geo-careers.com/posts/gis-portfolio-guide/) (skill cluster: Python + GeoPandas, target salary band US$135K), reframed around Paraná's 399 municipalities and Brazilian federal open data.
 
