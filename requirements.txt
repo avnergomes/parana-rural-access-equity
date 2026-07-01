@@ -27,6 +27,7 @@ mapclassify>=2.6
 folium>=0.17
 branca>=0.7
 contextily>=1.6
+plotly>=5.22        # interactive narrative report (src/report.py)
 
 # Notebook + dev
 jupyter>=1.0
