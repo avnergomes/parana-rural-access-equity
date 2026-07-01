@@ -130,16 +130,16 @@ document.querySelectorAll('table.sortable th').forEach((th,i)=>{th.addEventListe
 STR_ALL = {
     "en": {
         "html_lang": "en",
-        "title": "Rural Access Equity in Parana",
-        "meta_desc": ("Which of Parana's municipalities are underserved by rural health, schools and "
+        "title": "Rural Access Equity in Paraná",
+        "meta_desc": ("Which of Paraná's municipalities are underserved by rural health, schools and "
                       "agricultural extension relative to their rural population. An Enhanced 2SFCA over "
-                      "official IBGE, CNES, INEP and IDR-Parana data, told as an interactive report."),
+                      "official IBGE, CNES, INEP and IDR-Paraná data, told as an interactive report."),
         "brand": "Rural Access Equity",
         "nav_coverage": "Coverage", "nav_map": "The map", "nav_services": "Three services",
         "nav_gaps": "The gaps", "nav_robust": "Robustness", "nav_method": "Method", "nav_table": "Ranking",
         # hero
-        "hero_kicker": "Spatial equity · rural Parana · Enhanced 2SFCA",
-        "hero_title": "Rural Access Equity in Parana",
+        "hero_kicker": "Spatial equity · rural Paraná · Enhanced 2SFCA",
+        "hero_title": "Rural Access Equity in Paraná",
         "hero_thesis": ("Health, schools and agricultural extension all promise universal rural coverage. "
                         "This report measures what that coverage is actually worth, municipality by "
                         "municipality, and finds a countryside that is not served evenly."),
@@ -147,26 +147,26 @@ STR_ALL = {
         "hs2_v": "~1 in 4", "hs2": "of ranked rural residents live in that fifth ({bottom_pop})",
         "hs3": "service points geolocated across three networks",
         "hs4": "primary-care access gap, best vs worst fifth",
-        "src": ("Source: IBGE Censo 2022 (SIDRA 9923), Ministerio da Saude (CNES), INEP Censo Escolar 2024, "
-                "IDR-Parana · {n_total} municipalities · Enhanced 2SFCA (Luo &amp; Qi 2009) · Own elaboration"),
+        "src": ("Source: IBGE Censo 2022 (SIDRA 9923), Ministério da Saúde (CNES), INEP Censo Escolar 2024, "
+                "IDR-Paraná · {n_total} municipalities · Enhanced 2SFCA (Luo &amp; Qi 2009) · Own elaboration"),
         # coverage
         "co_kicker": "Coverage", "co_h2": "The countryside behind the coverage",
-        "co_lede": ("About {rural_total} people, {rural_pct} of Parana, live in the countryside and depend "
+        "co_lede": ("About {rural_total} people, {rural_pct} of Paraná, live in the countryside and depend "
                     "on three public networks that are universal on paper."),
-        "co_p1": ("<span class=\"lead-in\">Rural Parana is not a small place.</span> {rural_total} people, "
+        "co_p1": ("<span class=\"lead-in\">Rural Paraná is not a small place.</span> {rural_total} people, "
                   "roughly {rural_pct} of the state's {pop_total} residents, live outside the urban grid, "
                   "spread across nearly 200,000 square kilometres of farmland, forest and river valley. They "
-                  "rely on three parallel networks: primary care from the Sistema Unico de Saude, rural schools "
-                  "from the public system, and agricultural extension from IDR-Parana. Each network is meant to "
+                  "rely on three parallel networks: primary care from the Sistema Único de Saúde, rural schools "
+                  "from the public system, and agricultural extension from IDR-Paraná. Each network is meant to "
                   "reach everyone."),
         "co_p2": ("On paper, coverage is universal. In practice, a family in one municipality reaches a health "
                   "post in minutes while a family in the next faces a long drive over unpaved roads. This report "
                   "replaces the word covered with a number: for every municipality, how much service can its rural "
                   "population actually reach, and where do the shortfalls in health, schooling and extension line up."),
-        "co_f1": "rural residents", "co_f1n": "{rural_pct} of Parana's population",
-        "co_f2": "primary-care facilities", "co_f2n": "CNES, Ministerio da Saude open-data API",
+        "co_f1": "rural residents", "co_f1n": "{rural_pct} of Paraná's population",
+        "co_f2": "primary-care facilities", "co_f2n": "CNES, Ministério da Saúde open-data API",
         "co_f3": "active rural schools", "co_f3n": "INEP Censo Escolar 2024",
-        "co_f4": "extension offices", "co_f4n": "IDR-Parana, extension units only",
+        "co_f4": "extension offices", "co_f4n": "IDR-Paraná, extension units only",
         # map
         "mp_kicker": "The composite", "mp_h2": "One number per municipality",
         "mp_lede": ("Each municipality earns an access score for health, schools and extension, blended into a "
@@ -240,9 +240,9 @@ STR_ALL = {
         # method
         "mt_kicker": "Method", "mt_h2": "How it is built",
         "mt_lede": "Four official datasets, one accessibility formula, one command.",
-        "mt_p1": ("The pipeline pulls {cnes} primary-care facilities live from the Ministerio da Saude open-"
+        "mt_p1": ("The pipeline pulls {cnes} primary-care facilities live from the Ministério da Saúde open-"
                   "data API, {inep} rural schools from the INEP Censo Escolar 2024, {ater} extension offices from "
-                  "the IDR-Parana unit shapefile, and rural population from the 2022 Census (IBGE SIDRA 9923). "
+                  "the IDR-Paraná unit shapefile, and rural population from the 2022 Census (IBGE SIDRA 9923). "
                   "Access is scored with an Enhanced 2-Step Floating Catchment Area (Luo and Qi, 2009): great-"
                   "circle distance, Gaussian decay with a 30 km bandwidth, a 50 km catchment cutoff, and an "
                   "equal-weight composite of per-service percentile ranks."),
@@ -253,7 +253,7 @@ STR_ALL = {
                   "dropped coordinates, are documented in full in the repository."),
         "mt_refs_h": "Selected references",
         "mt_disc": ("An independent portfolio study by Avner Paes Gomes. Not affiliated with IBGE, the "
-                    "Ministerio da Saude, INEP or IDR-Parana."),
+                    "Ministério da Saúde, INEP or IDR-Paraná."),
         # table
         "tb_kicker": "The full ranking", "tb_h2": "Municipality by municipality",
         "tb_lede": "Every ranked municipality, sortable. Click a column header to reorder.",
@@ -261,142 +261,142 @@ STR_ALL = {
         "th_extension": "Extension", "th_composite": "Composite", "th_quintile": "Quintile",
         # footer
         "ft_by": "Developed by",
-        "ft_body": ("Parana Rural Access Equity · Enhanced 2SFCA over IBGE, CNES, INEP and IDR-Parana open "
+        "ft_body": ("Paraná Rural Access Equity · Enhanced 2SFCA over IBGE, CNES, INEP and IDR-Paraná open "
                     "data · {n_ranked} municipalities ranked · Full pipeline and methodology open source."),
     },
     "pt": {
         "html_lang": "pt-br",
-        "title": "Equidade no Acesso Rural no Parana",
-        "meta_desc": ("Quais municipios do Parana sao menos servidos por saude, escola e extensao rural em "
-                      "relacao a sua populacao rural. Um Enhanced 2SFCA sobre dados oficiais do IBGE, CNES, INEP "
-                      "e IDR-Parana, contado como um relatorio interativo."),
+        "title": "Equidade no Acesso Rural no Paraná",
+        "meta_desc": ("Quais municípios do Paraná são menos servidos por saúde, escola e extensão rural em "
+                      "relação à sua população rural. Um Enhanced 2SFCA sobre dados oficiais do IBGE, CNES, INEP "
+                      "e IDR-Paraná, contado como um relatório interativo."),
         "brand": "Equidade no Acesso Rural",
-        "nav_coverage": "Cobertura", "nav_map": "O mapa", "nav_services": "Tres servicos",
-        "nav_gaps": "As lacunas", "nav_robust": "Robustez", "nav_method": "Metodo", "nav_table": "Ranking",
+        "nav_coverage": "Cobertura", "nav_map": "O mapa", "nav_services": "Três serviços",
+        "nav_gaps": "As lacunas", "nav_robust": "Robustez", "nav_method": "Método", "nav_table": "Ranking",
         # hero
-        "hero_kicker": "Equidade espacial · Parana rural · Enhanced 2SFCA",
-        "hero_title": "Equidade no Acesso Rural no Parana",
-        "hero_thesis": ("Saude, escola e extensao rural prometem cobertura universal no campo. Este relatorio "
-                        "mede quanto essa cobertura vale de fato, municipio a municipio, e encontra um campo "
-                        "que nao e atendido de forma uniforme."),
-        "hs1": "municipios no quintil inferior, os subatendidos",
-        "hs2_v": "~1 em 4", "hs2": "da populacao rural ranqueada vive nesse quinto ({bottom_pop})",
-        "hs3": "pontos de servico georreferenciados em tres redes",
-        "hs4": "diferenca de acesso a atencao primaria, melhor vs pior quinto",
-        "src": ("Fonte: IBGE Censo 2022 (SIDRA 9923), Ministerio da Saude (CNES), INEP Censo Escolar 2024, "
-                "IDR-Parana · {n_total} municipios · Enhanced 2SFCA (Luo &amp; Qi 2009) · Elaboracao propria"),
+        "hero_kicker": "Equidade espacial · Paraná rural · Enhanced 2SFCA",
+        "hero_title": "Equidade no Acesso Rural no Paraná",
+        "hero_thesis": ("Saúde, escola e extensão rural prometem cobertura universal no campo. Este relatório "
+                        "mede quanto essa cobertura vale de fato, município a município, e encontra um campo "
+                        "que não é atendido de forma uniforme."),
+        "hs1": "municípios no quintil inferior, os subatendidos",
+        "hs2_v": "~1 em 4", "hs2": "da população rural ranqueada vive nesse quinto ({bottom_pop})",
+        "hs3": "pontos de serviço georreferenciados em três redes",
+        "hs4": "diferença de acesso à atenção primária, melhor vs pior quinto",
+        "src": ("Fonte: IBGE Censo 2022 (SIDRA 9923), Ministério da Saúde (CNES), INEP Censo Escolar 2024, "
+                "IDR-Paraná · {n_total} municípios · Enhanced 2SFCA (Luo &amp; Qi 2009) · Elaboração própria"),
         # coverage
-        "co_kicker": "Cobertura", "co_h2": "O campo por tras da cobertura",
-        "co_lede": ("Cerca de {rural_total} pessoas, {rural_pct} do Parana, vivem no campo e dependem de tres "
-                    "redes publicas que sao universais no papel."),
-        "co_p1": ("<span class=\"lead-in\">O Parana rural nao e pouca coisa.</span> Sao {rural_total} pessoas, "
+        "co_kicker": "Cobertura", "co_h2": "O campo por trás da cobertura",
+        "co_lede": ("Cerca de {rural_total} pessoas, {rural_pct} do Paraná, vivem no campo e dependem de três "
+                    "redes públicas que são universais no papel."),
+        "co_p1": ("<span class=\"lead-in\">O Paraná rural não é pouca coisa.</span> São {rural_total} pessoas, "
                   "cerca de {rural_pct} dos {pop_total} habitantes do estado, vivendo fora da malha urbana, "
-                  "espalhadas por quase 200 mil quilometros quadrados de lavoura, floresta e vale de rio. Elas "
-                  "dependem de tres redes paralelas: atencao primaria pelo Sistema Unico de Saude, escolas "
-                  "rurais pela rede publica e extensao rural pelo IDR-Parana. Cada rede deveria alcancar todos."),
-        "co_p2": ("No papel, a cobertura e universal. Na pratica, uma familia de um municipio chega a uma UBS "
-                  "em minutos enquanto a do municipio vizinho enfrenta uma longa estrada de chao. Este relatorio "
-                  "troca a palavra coberto por um numero: para cada municipio, quanto servico a sua populacao "
-                  "rural realmente alcanca, e onde as lacunas de saude, escola e extensao se sobrepoem."),
-        "co_f1": "residentes rurais", "co_f1n": "{rural_pct} da populacao do Parana",
-        "co_f2": "estabelecimentos de atencao primaria", "co_f2n": "CNES, API de dados abertos do MS",
+                  "espalhadas por quase 200 mil quilômetros quadrados de lavoura, floresta e vale de rio. Elas "
+                  "dependem de três redes paralelas: atenção primária pelo Sistema Único de Saúde, escolas "
+                  "rurais pela rede pública e extensão rural pelo IDR-Paraná. Cada rede deveria alcançar todos."),
+        "co_p2": ("No papel, a cobertura é universal. Na prática, uma família de um município chega a uma UBS "
+                  "em minutos enquanto a do município vizinho enfrenta uma longa estrada de chão. Este relatório "
+                  "troca a palavra coberto por um número: para cada município, quanto serviço a sua população "
+                  "rural realmente alcança, e onde as lacunas de saúde, escola e extensão se sobrepõem."),
+        "co_f1": "residentes rurais", "co_f1n": "{rural_pct} da população do Paraná",
+        "co_f2": "estabelecimentos de atenção primária", "co_f2n": "CNES, API de dados abertos do MS",
         "co_f3": "escolas rurais ativas", "co_f3n": "INEP Censo Escolar 2024",
-        "co_f4": "unidades de extensao", "co_f4n": "IDR-Parana, so unidades de extensao",
+        "co_f4": "unidades de extensão", "co_f4n": "IDR-Paraná, só unidades de extensão",
         # map
-        "mp_kicker": "O composto", "mp_h2": "Um numero por municipio",
-        "mp_lede": ("Cada municipio ganha um escore de acesso a saude, escola e extensao, combinado num unico "
-                    "composto e ranqueado em quintis. Use os botoes para trocar de camada."),
-        "mp_cap": ("<b>Percentis de acesso, composto e por servico.</b> Vermelho escuro e pior acesso, verde-"
-                   "agua e melhor. Troque entre o composto e cada servico pelos botoes. 0 = pior, 100 = melhor. "
-                   "Municipios quase sem populacao rural ficam fora do ranking."),
-        "mp_p1": ("O metodo e um Enhanced 2-Step Floating Catchment Area, padrao na literatura de "
-                  "acessibilidade espacial. Ele credita ao municipio cada equipamento que sua populacao rural "
-                  "alcanca em 50 km, desconta cada equipamento pela demanda que disputa em volta, e deixa o "
-                  "servico atravessar as divisas municipais como o deslocamento real faz. Cada servico vira um "
-                  "percentil, os tres viram uma media, e o quinto inferior e marcado como subatendido."),
-        "mp_pull": "Cobertura e uma promessa. Acesso e uma distancia.",
-        "m_composite": "Composto", "m_health": "Saude", "m_education": "Escolas",
-        "m_extension": "Extensao", "m_cbar": "Percentil", "m_pctile": "Percentil de acesso",
+        "mp_kicker": "O composto", "mp_h2": "Um número por município",
+        "mp_lede": ("Cada município ganha um escore de acesso à saúde, escola e extensão, combinado num único "
+                    "composto e ranqueado em quintis. Use os botões para trocar de camada."),
+        "mp_cap": ("<b>Percentis de acesso, composto e por serviço.</b> Vermelho escuro é pior acesso, verde-"
+                   "água é melhor. Troque entre o composto e cada serviço pelos botões. 0 = pior, 100 = melhor. "
+                   "Municípios quase sem população rural ficam fora do ranking."),
+        "mp_p1": ("O método é um Enhanced 2-Step Floating Catchment Area, padrão na literatura de "
+                  "acessibilidade espacial. Ele credita ao município cada equipamento que sua população rural "
+                  "alcança em 50 km, desconta cada equipamento pela demanda que disputa em volta, e deixa o "
+                  "serviço atravessar as divisas municipais como o deslocamento real faz. Cada serviço vira um "
+                  "percentil, os três viram uma média, e o quinto inferior é marcado como subatendido."),
+        "mp_pull": "Cobertura é uma promessa. Acesso é uma distância.",
+        "m_composite": "Composto", "m_health": "Saúde", "m_education": "Escolas",
+        "m_extension": "Extensão", "m_cbar": "Percentil", "m_pctile": "Percentil de acesso",
         # services
-        "sv_kicker": "A surpresa", "sv_h2": "Tres servicos, tres geografias",
-        "sv_lede": ("As tres redes nao se sobrepoem. Onde a atencao primaria e forte, a extensao tambem e. A "
-                    "escola rural e o oposto."),
-        "sv_cap": ("<b>Cada municipio ranqueado, duas relacoes.</b> Verde: acesso a saude contra acesso a "
-                   "extensao, que sobem juntos (r = {corr_hx}). Vermelho: saude contra acesso a escola rural, que "
-                   "se afastam (r = {corr_he}). As linhas sao as tendencias ajustadas."),
-        "sv_p1": ("Cruze o percentil de acesso a saude de cada municipio com o de acesso a extensao e a nuvem "
-                  "sobe com clareza. Os dois crescem juntos, com correlacao de {corr_hx}. Faz sentido: a UBS e o "
-                  "escritorio de extensao tendem a ficar nas mesmas cidades consolidadas do norte e do cinturao "
-                  "agricola modernizado."),
-        "sv_p2": ("Troque extensao por escola rural e a nuvem se inverte. Saude e escola se correlacionam em "
-                  "{corr_he}, e escola contra extensao em {corr_ex}. As escolas rurais sao mais densas exatamente "
-                  "onde saude e extensao rareiam, no centro-sul. O composto, portanto, nao mede uma coisa so. Ele "
-                  "encontra os lugares onde duas das tres redes falham ao mesmo tempo."),
-        "sv_callout": ("E por isso que o relatorio mostra os mapas por servico ao lado do composto. Um ranking "
-                       "unico esconderia que um municipio pode ser bem servido por escolas e carente de saude e "
-                       "extensao no mesmo folego. O quinto subatendido e definido por essa lacuna dupla, nao por "
-                       "um servico isolado."),
-        "cv_h": "Saude", "cv_x": "Extensao", "cv_e": "Escolas",
-        "cv_hx": "Saude vs extensao (r = {r})", "cv_he": "Saude vs escolas (r = {r})",
-        "cv_xaxis": "Percentil de acesso a saude", "cv_yaxis": "Percentil de acesso, extensao / escola",
+        "sv_kicker": "A surpresa", "sv_h2": "Três serviços, três geografias",
+        "sv_lede": ("As três redes não se sobrepõem. Onde a atenção primária é forte, a extensão também é. A "
+                    "escola rural é o oposto."),
+        "sv_cap": ("<b>Cada município ranqueado, duas relações.</b> Verde: acesso à saúde contra acesso à "
+                   "extensão, que sobem juntos (r = {corr_hx}). Vermelho: saúde contra acesso à escola rural, que "
+                   "se afastam (r = {corr_he}). As linhas são as tendências ajustadas."),
+        "sv_p1": ("Cruze o percentil de acesso à saúde de cada município com o de acesso à extensão e a nuvem "
+                  "sobe com clareza. Os dois crescem juntos, com correlação de {corr_hx}. Faz sentido: a UBS e o "
+                  "escritório de extensão tendem a ficar nas mesmas cidades consolidadas do norte e do cinturão "
+                  "agrícola modernizado."),
+        "sv_p2": ("Troque extensão por escola rural e a nuvem se inverte. Saúde e escola se correlacionam em "
+                  "{corr_he}, e escola contra extensão em {corr_ex}. As escolas rurais são mais densas exatamente "
+                  "onde saúde e extensão rareiam, no centro-sul. O composto, portanto, não mede uma coisa só. Ele "
+                  "encontra os lugares onde duas das três redes falham ao mesmo tempo."),
+        "sv_callout": ("É por isso que o relatório mostra os mapas por serviço ao lado do composto. Um ranking "
+                       "único esconderia que um município pode ser bem servido por escolas e carente de saúde e "
+                       "extensão no mesmo fôlego. O quinto subatendido é definido por essa lacuna dupla, não por "
+                       "um serviço isolado."),
+        "cv_h": "Saúde", "cv_x": "Extensão", "cv_e": "Escolas",
+        "cv_hx": "Saúde vs extensão (r = {r})", "cv_he": "Saúde vs escolas (r = {r})",
+        "cv_xaxis": "Percentil de acesso à saúde", "cv_yaxis": "Percentil de acesso, extensão / escola",
         # gaps
         "gp_kicker": "O quinto subatendido", "gp_h2": "Onde as lacunas se acumulam",
-        "gp_lede": ("O quintil inferior sao {bottom_n} municipios que concentram {bottom_pop} residentes "
+        "gp_lede": ("O quintil inferior são {bottom_n} municípios que concentram {bottom_pop} residentes "
                     "rurais, cerca de 1 em cada 4 do campo ranqueado."),
-        "gp_cap": ("<b>Diferenca de acesso, melhor quinto vs pior quinto.</b> Razao do acesso bruto E2SFCA "
-                   "ponderado por populacao entre o quintil superior e o inferior, por servico. Maior significa "
-                   "diferenca mais acentuada."),
-        "gp_p1": ("A diferenca e maior na atencao primaria: o quinto mais bem servido alcanca {gap_h} o acesso "
-                  "per capita do pior quinto. A extensao vem logo atras, em {gap_x}. A escola rural e quase plana, "
-                  "em {gap_e}, a mesma historia que o grafico de dispersao contou. A escola e a unica rede "
-                  "relativamente uniforme no campo, entao ela estreita a divisao em vez de alarga-la."),
-        "gp_lede2": "Quinze municipios ficam bem no fundo, encabecados por {worst1}.",
+        "gp_cap": ("<b>Diferença de acesso, melhor quinto vs pior quinto.</b> Razão do acesso bruto E2SFCA "
+                   "ponderado por população entre o quintil superior e o inferior, por serviço. Maior significa "
+                   "diferença mais acentuada."),
+        "gp_p1": ("A diferença é maior na atenção primária: o quinto mais bem servido alcança {gap_h} o acesso "
+                  "per capita do pior quinto. A extensão vem logo atrás, em {gap_x}. A escola rural é quase plana, "
+                  "em {gap_e}, a mesma história que o gráfico de dispersão contou. A escola é a única rede "
+                  "relativamente uniforme no campo, então ela estreita a divisão em vez de alargá-la."),
+        "gp_lede2": "Quinze municípios ficam bem no fundo, encabeçados por {worst1}.",
         "gp_cap2": ("<b>Os 15 menores percentis compostos.</b> A cor marca o quintil de acesso. Barras perto "
-                    "de zero sao os municipios mais subatendidos do estado."),
-        "svc_health": "Atencao primaria", "svc_extension": "Extensao", "svc_education": "Escola rural",
-        "gap_xaxis": "Razao de acesso, quinto superior vs inferior (x)",
-        "w_pctile": "Percentil composto", "w_pop": "Populacao rural", "w_xaxis": "Percentil de acesso composto",
+                    "de zero são os municípios mais subatendidos do estado."),
+        "svc_health": "Atenção primária", "svc_extension": "Extensão", "svc_education": "Escola rural",
+        "gap_xaxis": "Razão de acesso, quinto superior vs inferior (x)",
+        "w_pctile": "Percentil composto", "w_pop": "População rural", "w_xaxis": "Percentil de acesso composto",
         # robustness
         "rb_kicker": "Robustez", "rb_h2": "Quanto confiar no ranking",
-        "rb_lede": ("O composto pesa os tres servicos igualmente. Mude os pesos e veja quanto o quinto "
+        "rb_lede": ("O composto pesa os três serviços igualmente. Mude os pesos e veja quanto o quinto "
                     "subatendido se mexe."),
-        "rb_cap": ("<b>Estabilidade do quintil inferior sob pesos alternativos.</b> Fracao dos municipios do "
-                   "Q1 com pesos iguais que continuam no Q1 quando os pesos pendem para um servico, ou seguem o "
+        "rb_cap": ("<b>Estabilidade do quintil inferior sob pesos alternativos.</b> Fração dos municípios do "
+                   "Q1 com pesos iguais que continuam no Q1 quando os pesos pendem para um serviço, ou seguem o "
                    "primeiro componente principal."),
-        "rb_p1": ("Incline os pesos para a saude e o quinto subatendido quase nao muda: {ov_health} dele "
-                  "permanece, e a extensao se comporta do mesmo jeito, porque essas duas redes andam juntas. "
+        "rb_p1": ("Incline os pesos para a saúde e o quinto subatendido quase não muda: {ov_health} dele "
+                  "permanece, e a extensão se comporta do mesmo jeito, porque essas duas redes andam juntas. "
                   "Incline para a escola rural e apenas {ov_education} sobrevive, porque a escola puxa contra as "
-                  "outras duas. Uma ponderacao por componente principal mantem so {ov_pc1}. A leitura honesta e "
-                  "robustez moderada: o ranking e estavel enquanto nao for guiado pela unica rede que corre no "
-                  "sentido contrario, e essa tensao e um achado que vale mostrar em vez de disfarcar."),
-        "sc_equal": "Iguais", "sc_health": "Pro-saude", "sc_extension": "Pro-extensao",
-        "sc_education": "Pro-escola", "sc_pc1": "Por PC1",
-        "sc_yaxis": "Sobreposicao com pesos iguais (%)",
+                  "outras duas. Uma ponderação por componente principal mantém só {ov_pc1}. A leitura honesta é "
+                  "robustez moderada: o ranking é estável enquanto não for guiado pela única rede que corre no "
+                  "sentido contrário, e essa tensão é um achado que vale mostrar em vez de disfarçar."),
+        "sc_equal": "Iguais", "sc_health": "Pró-saúde", "sc_extension": "Pró-extensão",
+        "sc_education": "Pró-escola", "sc_pc1": "Por PC1",
+        "sc_yaxis": "Sobreposição com pesos iguais (%)",
         # method
-        "mt_kicker": "Metodo", "mt_h2": "Como e construido",
-        "mt_lede": "Quatro bases oficiais, uma formula de acessibilidade, um comando.",
-        "mt_p1": ("O pipeline puxa {cnes} estabelecimentos de atencao primaria ao vivo da API de dados abertos "
-                  "do Ministerio da Saude, {inep} escolas rurais do INEP Censo Escolar 2024, {ater} unidades de "
-                  "extensao do shapefile de unidades do IDR-Parana, e a populacao rural do Censo 2022 (IBGE SIDRA "
-                  "9923). O acesso e medido por um Enhanced 2-Step Floating Catchment Area (Luo e Qi, 2009): "
-                  "distancia em linha reta, decaimento gaussiano com banda de 30 km, corte de captacao em 50 km "
-                  "e um composto de pesos iguais dos percentis por servico."),
-        "mt_p2": ("Cada fonte vai para cache em disco e o relatorio inteiro se reconstroi a partir do dado "
-                  "bruto com um unico comando. O codigo, o texto de metodologia e o mapa interativo sao abertos. "
-                  "As limitacoes conhecidas, a saber distancia em linha reta em vez de tempo de viagem, efeitos "
-                  "de borda no reservatorio de Itaipu, e escolas ancoradas no centroide municipal porque o "
-                  "microdado de 2024 deixou de trazer coordenadas, estao documentadas por completo no repositorio."),
-        "mt_refs_h": "Referencias selecionadas",
-        "mt_disc": ("Estudo de portfolio independente de Avner Paes Gomes. Sem vinculo com IBGE, Ministerio da "
-                    "Saude, INEP ou IDR-Parana."),
+        "mt_kicker": "Método", "mt_h2": "Como é construído",
+        "mt_lede": "Quatro bases oficiais, uma fórmula de acessibilidade, um comando.",
+        "mt_p1": ("O pipeline puxa {cnes} estabelecimentos de atenção primária ao vivo da API de dados abertos "
+                  "do Ministério da Saúde, {inep} escolas rurais do INEP Censo Escolar 2024, {ater} unidades de "
+                  "extensão do shapefile de unidades do IDR-Paraná, e a população rural do Censo 2022 (IBGE SIDRA "
+                  "9923). O acesso é medido por um Enhanced 2-Step Floating Catchment Area (Luo e Qi, 2009): "
+                  "distância em linha reta, decaimento gaussiano com banda de 30 km, corte de captação em 50 km "
+                  "e um composto de pesos iguais dos percentis por serviço."),
+        "mt_p2": ("Cada fonte vai para cache em disco e o relatório inteiro se reconstrói a partir do dado "
+                  "bruto com um único comando. O código, o texto de metodologia e o mapa interativo são abertos. "
+                  "As limitações conhecidas, a saber distância em linha reta em vez de tempo de viagem, efeitos "
+                  "de borda no reservatório de Itaipu, e escolas ancoradas no centroide municipal porque o "
+                  "microdado de 2024 deixou de trazer coordenadas, estão documentadas por completo no repositório."),
+        "mt_refs_h": "Referências selecionadas",
+        "mt_disc": ("Estudo de portfólio independente de Avner Paes Gomes. Sem vínculo com IBGE, Ministério da "
+                    "Saúde, INEP ou IDR-Paraná."),
         # table
-        "tb_kicker": "O ranking completo", "tb_h2": "Municipio a municipio",
-        "tb_lede": "Cada municipio ranqueado, ordenavel. Clique no cabecalho de uma coluna.",
-        "th_muni": "Municipio", "th_pop": "Pop. rural", "th_health": "Saude", "th_education": "Escolas",
-        "th_extension": "Extensao", "th_composite": "Composto", "th_quintile": "Quintil",
+        "tb_kicker": "O ranking completo", "tb_h2": "Município a município",
+        "tb_lede": "Cada município ranqueado, ordenável. Clique no cabeçalho de uma coluna.",
+        "th_muni": "Município", "th_pop": "Pop. rural", "th_health": "Saúde", "th_education": "Escolas",
+        "th_extension": "Extensão", "th_composite": "Composto", "th_quintile": "Quintil",
         # footer
         "ft_by": "Desenvolvido por",
-        "ft_body": ("Equidade no Acesso Rural no Parana · Enhanced 2SFCA sobre dados abertos do IBGE, CNES, "
-                    "INEP e IDR-Parana · {n_ranked} municipios ranqueados · Pipeline e metodologia abertos."),
+        "ft_body": ("Equidade no Acesso Rural no Paraná · Enhanced 2SFCA sobre dados abertos do IBGE, CNES, "
+                    "INEP e IDR-Paraná · {n_ranked} municípios ranqueados · Pipeline e metodologia abertos."),
     },
 }
