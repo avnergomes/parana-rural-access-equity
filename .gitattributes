@@ -1,0 +1,11 @@
+# Normalize line endings: LF in the repo, native on checkout.
+* text=auto eol=lf
+
+# Binary assets — never touch.
+*.png binary
+*.gpkg binary
+*.parquet binary
+*.zip binary
+
+# Notebooks: keep as-is (JSON), let git handle them as text.
+*.ipynb text

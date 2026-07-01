@@ -1,0 +1,74 @@
+# Data — ignore downloaded/derived contents, but keep sentinels and curated source.
+# Use `dir/*` (contents) rather than `dir/` (the directory) so specific files
+# below can be re-included with a negation.
+data/raw/*
+data/processed/*
+*.parquet
+*.gpkg
+*.shp
+*.dbf
+*.shx
+*.prj
+*.cpg
+*.qix
+*.zip
+*.gz
+*.7z
+*.pbf
+*.osm
+*.geojson
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+# Keep the hand-curated ATER seed CSV — it is source, not a download.
+!data/raw/ater_pr_stations_seed.csv
+
+# Outputs (partial — keep the finished deliverables)
+output/*.tmp
+output/cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+.python-version
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets / env
+.env
+.env.local
+*.pem
+*.key
+
+# Logs
+*.log
+logs/
