@@ -130,6 +130,19 @@ PR_BBOX_LAT_MIN: float = -26.8
 PR_BBOX_LAT_MAX: float = -22.4
 
 # ---------------------------------------------------------------------------
+# IDR-Parana — agricultural extension (ATER) units
+# ---------------------------------------------------------------------------
+
+# Official IDR-Parana unit shapefile (georeferenced points, UTM 22S), shipped
+# with the repo. The `UNIDADE` field separates extension units from research
+# units; data_ater.py keeps only the extension ones (municipal + regional).
+IDR_UNITS_ZIP: Path = DATA_RAW / "Unidades_IDR_UTM.zip"
+IDR_UNITS_SHP_NAME: str = "Unidades_IDR_UTM.shp"
+# Substring that identifies an extension unit in the UNIDADE field
+# ("Unidade Municipal de Extensao" / "Unidade Regional de Extensao").
+IDR_EXTENSION_UNIDADE_MATCH: str = "Extens"
+
+# ---------------------------------------------------------------------------
 # OpenStreetMap — via Geofabrik
 # ---------------------------------------------------------------------------
 

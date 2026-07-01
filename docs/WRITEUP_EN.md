@@ -13,7 +13,7 @@ I built a reproducible pipeline that:
 1. Pulled the 399 Paraná municipal polygons and 2022 Censo rural population (IBGE SIDRA table 9923).
 2. Pulled all Paraná primary-care CNES facilities (`codigo_tipo_unidade ∈ {1, 2, 32, 40}`: postos, UBS, mobile units) from the Ministério da Saúde open-data API. That is 3,075 facilities with valid coordinates.
 3. Pulled every active rural school from the INEP Censo Escolar 2024 (`TP_LOCALIZACAO == 2` OR `TP_LOCALIZACAO_DIFERENCIADA > 0`): 1,187 schools statewide.
-4. Pulled the 22 IDR-Paraná Núcleos Regionais from a curated CSV.
+4. Pulled 414 georeferenced IDR-Paraná extension offices from the official IDR unit shapefile (`Unidades_IDR_UTM`), filtered to extension units only: 392 Unidade Municipal de Extensão (one per served municipio) plus 22 Unidade Regional de Extensão. Research units (Estação/Polo de Pesquisa) and the 2 administrative Sede offices are excluded.
 5. Computed an **Enhanced 2-Step Floating Catchment Area** (Luo & Qi, 2009) score per service, with Gaussian distance decay (β = 30 km) and a 50 km catchment cutoff.
 6. Converted each per-service score to a percentile rank and averaged them into an equal-weight composite.
 7. Ranked the 364 municipios with meaningful rural population into quintiles and flagged the bottom 20% as underserved.
@@ -22,10 +22,10 @@ Everything is in Python. Every raw dataset caches to disk. The whole thing runs 
 
 ## What I found
 
-- **Bottom quintile (Q1):** 73 municipios. They cluster in the Centro-Sul and Campos Gerais interior (Tibagi, Candói, Altamira do Paraná, Nova Cantu), the Norte Pioneiro border (Santana and Salto do Itararé), and a cluster of small Costa Oeste municipios wedged against the Itaipu reservoir (Pato Bragado, Santa Helena, Mercedes, Entre Rios do Oeste).
-- **Population impact:** 196,356 rural residents, about 1 in 6 of the state's ranked rural population, live in a Q1 municipio.
-- **Access gap:** in the worst-served fifth, per-capita raw E2SFCA access runs about 2.2x below the best-served fifth for primary care and about 2.3x below for rural schooling (population-weighted). Extension shows a far larger gap, but that number is dominated by the coarseness of the 22-point ATER layer and should be read as a caveat, not a headline.
-- **Robustness:** Q1 membership is moderately stable when the weights tilt toward any single service: 67 to 88 percent of Q1 municipios stay in Q1 under health-heavy, education-heavy, or extension-down schemes. It is *not* stable under a PC1-derived weighting (27 percent overlap), and that is the interesting part. Health and rural schooling are spatially anti-correlated in Paraná (the north is strong on primary care, the center-south on rural schools), so the first principal component captures that tension rather than a shared access axis. I report the per-service maps alongside the composite for exactly this reason.
+- **Bottom quintile (Q1):** 73 municipios. The worst-off ten by composite percentile are Tibagi, Pato Bragado, Santa Helena, Capanema, Serranópolis do Iguaçu, Entre Rios do Oeste, Nova Cantu, Pérola d'Oeste, Rio Negro, and Barracão. They fall into two patterns: Tibagi in the Campos Gerais interior, and a strong Costa Oeste / Sudoeste cluster running along the Itaipu reservoir and the Paraguay and Argentina border.
+- **Population impact:** 338,499 rural residents, about 1 in 4 of the state's ranked rural population of 1,253,122, live in a Q1 municipio.
+- **Access gap:** in the worst-served fifth, per-capita raw E2SFCA access runs about 3.3x below the best-served fifth for primary care, about 2.9x below for agricultural extension, and about 1.2x below for rural schooling (population-weighted). Extension is now built from 414 real office points, so its gradient is a genuine spatial signal rather than an artifact of a coarse seed.
+- **Robustness:** Q1 membership is fairly stable when the weights tilt toward health or extension (91.8 percent overlap with equal weights under a health-heavy 0.5/0.25/0.25 scheme, 79.5 percent under an extension-heavy 0.25/0.25/0.5 one), but it moves more under an education-heavy scheme (56.2 percent) and a PC1-derived weighting (45.2 percent). The reason is in the per-service correlations. Primary care and extension co-vary across municipios (health vs extension = +0.74), both concentrating in the more-developed north and the modernized agricultural belt, while rural-school access is the mirror image (health vs education = -0.46, education vs extension = -0.73), strongest in the center-south. So the composite's worst-off fifth is where health and extension are both thin at once, and those same places tend to have relatively more rural schools. The first principal component (weights +0.88 health, -0.87 education, +0.99 extension) captures that health-plus-extension versus education contrast rather than a shared access axis, which is why I publish the per-service maps alongside the composite.
 
 ## Why this framing
 
@@ -39,7 +39,6 @@ Equal weights across the three services reflect a constitutional framing (Art. 1
 - **Boundary effects** pull down the small Costa Oeste municipios on the Itaipu reservoir: their 50 km catchment is cut off by water and the international border, and cross-border Paraguayan facilities do not count. This is real geography, but a national-plus-border catchment would soften it.
 - **CNES capacity = 1 unit per facility** underestimates busier UBS with multiple equipes de Saúde da Família. Adding CNES `EQ` file joins would fix this.
 - **INEP schools are anchored to the municipal centroid.** The 2024 Censo Escolar microdata no longer publishes school coordinates, so each school is placed at the centroid of its municipality. That matches the municipal resolution of the analysis but loses within-municipality detail; a v2 would join the INEP "Catálogo de Escolas" for true points.
-- **The ATER layer is coarse:** 22 regional offices stand in for the whole extension network, which is why the extension access gap is large and volatile. Municipal-level ATER unit locations would refine it.
 - **Cross-state facilities** are ignored. Border municipios near SP, SC, and MS would score slightly better with a national-scale catchment.
 
 ## What this piece is meant to show

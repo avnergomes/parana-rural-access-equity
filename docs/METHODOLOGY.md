@@ -12,7 +12,7 @@ _A concise defence of the modeling choices, with citations._
 - **Supply, three services:**
   - **Health:** primary-care facilities (`codigo_tipo_unidade ∈ {1, 2, 32, 40}`: Posto de Saúde, UBS, and both mobile-unit types) pulled live from the Ministério da Saúde open-data API (`apidadosabertos.saude.gov.br`), filtered to PR with valid coordinates: 3,075 facilities. Capacity = 1 unit per facility.
   - **Education:** schools in the INEP Censo Escolar 2024 with `TP_LOCALIZACAO == 2` (rural) OR `TP_LOCALIZACAO_DIFERENCIADA > 0` (quilombola, assentamento, floresta, ribeirinha, indígena): 1,187 active PR schools. Capacity = `QT_MAT_BAS` (total enrolments), floored at 1 so schools with missing counts still participate. Because the 2024 microdata no longer ships coordinates, each school is anchored to its municipality centroid (see limitation 2).
-  - **Extension:** IDR-Paraná ATER stations from a hand-curated CSV of the 22 Núcleos Regionais. Capacity = 1 unit per station. (Extension detail is coarser than health/education by design; noted as a limitation.)
+  - **Extension:** 414 georeferenced IDR-Paraná extension offices from the official IDR unit shapefile (`Unidades_IDR_UTM`), filtered to extension units only: 392 "Unidade Municipal de Extensão" (one per served município) plus 22 "Unidade Regional de Extensão". Research units (Estação/Polo de Pesquisa) and the 2 administrative Sede offices are excluded. Real coordinates, capacity = 1 unit per office. This makes extension the most granular of the three supply layers, with a real, defensible spatial gradient.
 - **Distance:** great-circle (haversine) in km, computed from municipal centroids to facility points. Rationale: for a weekend MVP at Paraná scale, network travel-time via OSM would take 1.5–3 hours of compute and multiple hours of dev, without materially changing the ranking. Isochrone routing is listed in `docs/future_work.md` for a v2 pass.
 - **Accessibility formula:** Enhanced 2-Step Floating Catchment Area (E2SFCA) as in Luo & Qi (2009):
 
@@ -33,7 +33,7 @@ _A concise defence of the modeling choices, with citations._
 - **E2SFCA over facilities-per-capita**: naïve facilities-per-1000-rural crushes cross-boundary catchment (a UBS 3 km outside the municipal boundary still serves that municipio) and treats municipal borders as impermeable. E2SFCA captures both the supply competition (Step 1) and the reachable supply from each demand point (Step 2). It is the current standard in the peer-reviewed Brazilian health-geography literature (Luo & Wang 2003; Luo & Qi 2009; Delamater 2013).
 - **Gaussian decay over step decay**: no ranking artifacts at band edges; matches the Luo & Qi calibration.
 - **β = 30 km, d0 = 50 km**: reproduces the Brazilian rural primary-care practical reach used in the literature.
-- **Equal weights**: constitutionally defensible (Art. 196 health, Art. 205 education, Law 12.188/2010 PNATER extension) and transparent. Sensitivity to the weighting is reported honestly rather than assumed away (see the Sensitivity section below): bottom-quintile membership is moderately stable (67 to 88 percent overlap) when weights tilt toward a single service, but health and rural schooling are spatially anti-correlated in Paraná, so a PC1-derived weighting diverges. That tension is a finding, and it is why the per-service maps are published alongside the composite.
+- **Equal weights**: constitutionally defensible (Art. 196 health, Art. 205 education, Law 12.188/2010 PNATER extension) and transparent. Sensitivity to the weighting is reported honestly rather than assumed away (see the Sensitivity section below): bottom-quintile membership is moderately stable (79.5 to 91.8 percent overlap) when weights tilt toward health or extension, which co-vary spatially across Paraná, but rural schooling is the mirror image, so an education-heavy or PC1-derived weighting diverges more. That tension is a finding, and it is why the per-service maps are published alongside the composite.
 - **Percentile rank over z-score / min-max**: outlier-robust; directly aligns with quintile-based communication; z-scores assume normality that rural access does not follow.
 
 ## Data licenses
@@ -43,17 +43,16 @@ _A concise defence of the modeling choices, with citations._
 | IBGE (malhas municipais, SIDRA) | Public domain / CC0 | © IBGE |
 | CNES via Ministério da Saúde open-data API | Public domain | © Ministério da Saúde |
 | INEP Censo Escolar 2024 | Public domain | © INEP |
-| IDR-Paraná ATER seed CSV | Public knowledge (list of Núcleos Regionais) | © IDR-Paraná |
+| IDR-Paraná official unit shapefile (`Unidades_IDR_UTM`, extension units only) | Public-sector open data | © IDR-Paraná |
 | OpenStreetMap (v2 only) | ODbL 1.0 | © OpenStreetMap contributors |
 
 ## Limitations
 
 1. **Great-circle distances.** Rugged terrain (Serra do Mar, Serra Geral) makes real travel time non-linear vs. straight-line distance. Planned v2: OSM road-network isochrones via `osmnx.routing` with a per-municipio pre-clipped PBF (see `docs/future_work.md`).
-2. **INEP schools anchored to municipal centroids.** The Censo Escolar **2024** microdata no longer publishes school coordinates (INEP dropped LATITUDE/LONGITUDE from the public file). Each rural school is therefore placed at the centroid of its `CO_MUNICIPIO` polygon. This is consistent with the municipal resolution of the analysis and with the centroid-based ATER layer, but it removes within-municipality spatial variation for the education service. A v2 could join the INEP "Catálogo de Escolas" (which retains georef) for true school points.
+2. **INEP schools anchored to municipal centroids.** The Censo Escolar **2024** microdata no longer publishes school coordinates (INEP dropped LATITUDE/LONGITUDE from the public file). Each rural school is therefore placed at the centroid of its `CO_MUNICIPIO` polygon. This is consistent with the municipal resolution of the analysis, but it removes within-municipality spatial variation for the education service. A v2 could join the INEP "Catálogo de Escolas" (which retains georef) for true school points.
 3. **CNES capacity = 1 per unit.** A staffed UBS with 4 equipes de Saúde da Família actually delivers more care than a 1-person Posto. Using `QT_PROF_MED` or `QT_EQUIPES` from CNES `EQ` files would be an easy refinement.
-4. **ATER capacity is coarser than health/education.** IDR-Paraná does not publish per-station staffing counts consistently. The seed CSV counts 1 unit per Núcleo Regional; a follow-up could add municipal extension teams (Escritórios Locais).
-5. **Boundary effects.** Cross-state UBS and schools in São Paulo, Santa Catarina, and Mato Grosso do Sul are ignored. For the border municipios (~30 of the 399) this understates access. The E2SFCA d0=50 km catchment somewhat masks the effect for interior municipios.
-6. **Centroid ≠ population-weighted centroid.** Using the geometric centroid for demand assumes rural population is uniformly distributed within each municipio, which it is not (population usually clusters near sub-district seats). A v2 pass could compute weighted centroids from IBGE Setores Censitários rural polygons.
+4. **Boundary effects.** Cross-state UBS and schools in São Paulo, Santa Catarina, and Mato Grosso do Sul are ignored. Along the Costa Oeste and Sudoeste the Itaipu reservoir and the Paraguay/Argentina international border cut into the 50 km catchment, so cross-border facilities go uncounted; for these municipios access is understated, which is one reason the worst-off composite cluster sits along that western edge. The E2SFCA d0=50 km catchment somewhat masks the effect for interior municipios.
+5. **Centroid ≠ population-weighted centroid.** Using the geometric centroid for demand assumes rural population is uniformly distributed within each municipio, which it is not (population usually clusters near sub-district seats). A v2 pass could compute weighted centroids from IBGE Setores Censitários rural polygons.
 
 ## Sensitivity checks
 
@@ -62,12 +61,12 @@ _A concise defence of the modeling choices, with citations._
 | Scheme | Q1 overlap vs equal weights |
 |---|---|
 | Equal (1/3 each) | 100% (baseline) |
-| Extension-down (0.4 / 0.4 / 0.2) | 88% |
-| Education-heavy (0.25 / 0.5 / 0.25) | 80% |
-| Health-heavy (0.5 / 0.25 / 0.25) | 67% |
-| PC1-derived | 27% |
+| Health-heavy (0.5 / 0.25 / 0.25) | 91.8% |
+| Extension-heavy (0.25 / 0.25 / 0.5) | 79.5% |
+| Education-heavy (0.25 / 0.5 / 0.25) | 56.2% |
+| PC1-derived | 45.2% |
 
-The takeaway is not "perfectly robust". Q1 is stable to the extent that a service is not zeroed out, but the ranking genuinely depends on the health-vs-education balance because those two services are spatially anti-correlated across Paraná (PC1 loadings: health +1.29, education −1.08, extension +0.79 after normalization). The first principal component therefore measures a health-education *contrast*, not a shared access axis, which is why its Q1 set overlaps the equal-weight set by only 27%. Equal weighting is a transparent normative choice, and the per-service maps are published so a reader can see the contrast directly.
+The takeaway is moderate robustness. Q1 is fairly stable when the weighting tilts toward health or extension (91.8% and 79.5% overlap), because primary-care access and extension access co-vary across Paraná (health-vs-extension percentile correlation +0.74): both concentrate in the same more-developed municipios, largely the north and the modernized agricultural belt. Rural-school access is the mirror image (health-vs-education −0.46, education-vs-extension −0.73), strongest in the center-south, so reweighting toward education moves Q1 more (56.2% overlap). The composite's worst-off fifth is therefore where health and extension are both thin at once, and those places tend to have relatively more rural schools. The first principal component loads (health +0.88, education −0.87, extension +0.99), i.e. a (health + extension) *versus* education contrast rather than a shared access axis, which is why its Q1 set overlaps the equal-weight set by only 45.2%. Equal weighting is a transparent normative choice, and the per-service maps are published so a reader can see the education-versus-rest contrast directly.
 
 **Decay parameter and catchment cutoff (scoped for v2).** Recomputing E2SFCA across β ∈ {20, 30, 40} km and d0 ∈ {30, 50, 75} km, and reporting Kendall's τ between the resulting composite rankings, is the natural next robustness pass. It is described here and left for the follow-up rather than claimed.
 

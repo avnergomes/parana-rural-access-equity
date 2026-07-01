@@ -1,86 +1,96 @@
-"""IDR-Parana ATER (agricultural extension) stations.
+"""IDR-Parana ATER (agricultural extension) units.
 
-There is no fully-public API listing IDR-PR regional and municipal offices,
-so this module works from a hand-curated CSV of the 22 Nucleos Regionais.
+Source: the official IDR-Parana unit shapefile (`Unidades_IDR_UTM`), which
+lists every institute unit as a georeferenced point with its type in the
+`UNIDADE` field. The institute separates its network into extension units and
+research units; this module keeps only the **extension** ones:
 
-Lookup order:
-    1. `data/raw/ater_pr_stations.csv` — user-provided (overrides).
-    2. `data/raw/ater_pr_stations_seed.csv` — the checked-in fallback covering
-       the 22 Nucleos Regionais by seat city.
+    - "Unidade Municipal de Extensao"  (392, one per served municipio)
+    - "Unidade Regional de Extensao"   (22 regional hubs)
 
-The `capacity` column defaults to 1 unit per station. Downstream E2SFCA will
-weight rural population against station count.
+and drops research units ("Estacao de Pesquisa", "Polo de Pesquisa") and the
+two administrative "Sede" head offices, which do not deliver field extension.
 
-Coordinates are resolved by joining CD_MUN to the IBGE municipality polygon
-and using its geometric centroid — a defensible approximation for a Nucleo
-that serves its whole seat municipio.
+Each unit already carries real LAT/LONG, so no centroid approximation is
+needed (unlike the earlier 22-Nucleo seed CSV this replaces). `capacity`
+defaults to 1 unit per office.
 """
 
 from __future__ import annotations
 
+import zipfile
 from pathlib import Path
 
 import geopandas as gpd
-import pandas as pd
 
 from . import config
-from .data_ibge import load_municipalities
 from .utils import log
 
 
-ATER_USER_CSV = config.DATA_RAW / "ater_pr_stations.csv"
-ATER_SEED_CSV = config.DATA_RAW / "ater_pr_stations_seed.csv"
-
-
-def _pick_source() -> Path:
-    """Prefer the user-provided CSV; fall back to the seed."""
-    if ATER_USER_CSV.exists():
-        log().info("using user-provided ATER stations: %s", ATER_USER_CSV.name)
-        return ATER_USER_CSV
-    if ATER_SEED_CSV.exists():
-        log().info("using seed ATER stations: %s", ATER_SEED_CSV.name)
-        return ATER_SEED_CSV
-    raise FileNotFoundError(
-        f"no ATER CSV found — expected {ATER_USER_CSV} or {ATER_SEED_CSV}"
-    )
+def _ensure_shapefile(force: bool = False) -> Path:
+    """Unzip the checked-in IDR units archive and return the .shp path."""
+    dest_dir = config.DATA_RAW / "idr_units"
+    shp = dest_dir / config.IDR_UNITS_SHP_NAME
+    if shp.exists() and not force:
+        return shp
+    if not config.IDR_UNITS_ZIP.exists():
+        raise FileNotFoundError(
+            f"missing IDR units archive: {config.IDR_UNITS_ZIP}. "
+            "It ships with the repo under data/raw/."
+        )
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(config.IDR_UNITS_ZIP) as z:
+        z.extractall(dest_dir)
+    log().info("unzipped %s -> %s", config.IDR_UNITS_ZIP.name, dest_dir)
+    return shp
 
 
 def load_ater_stations(force: bool = False) -> gpd.GeoDataFrame:
-    """Return a GeoDataFrame of IDR-PR extension stations with capacity + geometry."""
+    """Return a GeoDataFrame of IDR-PR extension units with capacity + geometry.
+
+    Filtered to extension units only (municipal + regional), reprojected to
+    EPSG:4674, `capacity = 1` per unit.
+    """
     cache = config.DATA_PROCESSED / "ater_pr_stations.gpkg"
     if cache.exists() and not force:
         log().info("cache hit: %s", cache.name)
         return gpd.read_file(cache)
 
-    src = _pick_source()
-    df = pd.read_csv(src, dtype={"CD_MUN": str})
-    df["CD_MUN"] = df["CD_MUN"].str.strip().str.zfill(7)
-    if "capacity" not in df.columns:
-        df["capacity"] = 1.0
+    shp = _ensure_shapefile(force=force)
+    gdf = gpd.read_file(shp)
 
-    munis = load_municipalities(force=False)
-    # Reproject once to a metric CRS so centroid() is meaningful.
-    munis_metric = munis.to_crs(config.CRS_METRIC_PR)
-    centroids = (
-        munis_metric.assign(geometry=munis_metric.geometry.centroid)
-        .to_crs(config.CRS_GEOGRAPHIC)[["CD_MUN", "NM_MUN", "geometry"]]
+    # Keep only extension units; drop research units and administrative "Sede".
+    unidade = gdf["UNIDADE"].astype(str)
+    is_extension = unidade.str.contains("Extens", case=False, na=False)
+    ext = gdf[is_extension].copy()
+    log().info(
+        "IDR units: %d total -> %d extension (%d municipal, %d regional); "
+        "dropped %d research/Sede",
+        len(gdf),
+        len(ext),
+        int(unidade[is_extension].str.contains("Municipal", case=False).sum()),
+        int(unidade[is_extension].str.contains("Regional", case=False).sum()),
+        len(gdf) - len(ext),
     )
 
-    joined = df.merge(centroids, on="CD_MUN", how="left", suffixes=("", "_muni"))
-    missing = joined["geometry"].isna().sum()
-    if missing:
-        log().warning("%d ATER stations have no matching CD_MUN centroid", missing)
+    # Normalize to the pipeline CRS and schema.
+    ext = ext.to_crs(config.CRS_GEOGRAPHIC)
+    ext["CD_MUN"] = ext["Cod_IBGE"].astype(str).str.strip().str.zfill(7)
+    ext = ext.rename(columns={"UNIDADE": "unit_type", "REGIONAL": "nucleo_regional"})
+    ext["capacity"] = 1.0
 
-    gdf = gpd.GeoDataFrame(joined, geometry="geometry", crs=config.CRS_GEOGRAPHIC)
-    gdf = gdf.dropna(subset=["geometry"]).reset_index(drop=True)
+    keep = ["CD_MUN", "nucleo_regional", "unit_type", "capacity", "geometry"]
+    keep = [c for c in keep if c in ext.columns]
+    gdf_out = gpd.GeoDataFrame(ext[keep], geometry="geometry", crs=config.CRS_GEOGRAPHIC)
+    gdf_out = gdf_out[gdf_out.geometry.notna()].reset_index(drop=True)
 
     cache.parent.mkdir(parents=True, exist_ok=True)
-    gdf.to_file(cache, driver="GPKG")
-    log().info("saved %d ATER stations -> %s", len(gdf), cache.name)
-    return gdf
+    gdf_out.to_file(cache, driver="GPKG")
+    log().info("saved %d ATER extension units -> %s", len(gdf_out), cache.name)
+    return gdf_out
 
 
 if __name__ == "__main__":
-    gdf = load_ater_stations()
-    print(f"IDR-PR extension stations: {len(gdf)}")
-    print(gdf[["nucleo_regional", "NM_MUN", "capacity"]].head())
+    gdf = load_ater_stations(force=True)
+    print(f"IDR-PR extension units: {len(gdf)}")
+    print(gdf[["nucleo_regional", "unit_type", "CD_MUN", "capacity"]].head())

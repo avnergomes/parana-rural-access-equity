@@ -19,8 +19,8 @@ data/processed/*
 *.geojson
 !data/raw/.gitkeep
 !data/processed/.gitkeep
-# Keep the hand-curated ATER seed CSV — it is source, not a download.
-!data/raw/ater_pr_stations_seed.csv
+# Keep the official IDR-Parana extension-units shapefile — it is source data.
+!data/raw/Unidades_IDR_UTM.zip
 
 # Outputs (partial — keep the finished deliverables)
 output/*.tmp

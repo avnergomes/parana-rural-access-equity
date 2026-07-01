@@ -1,16 +1,16 @@
 {
   "bottom_quintile_muni_count": 73,
-  "bottom_quintile_pop_rural": 196356,
+  "bottom_quintile_pop_rural": 338499,
   "ranked_pop_rural": 1253122,
-  "bottom_quintile_pop_share": 0.15669344245811662,
-  "composite_percentile_gap_ratio": 2.4350659366083143,
-  "raw_access_gap_health": 2.167278717422961,
-  "raw_access_gap_education": 2.256253445006498,
-  "raw_access_gap_extension": 37.999910695901995,
+  "bottom_quintile_pop_share": 0.27012453695649746,
+  "composite_percentile_gap_ratio": 2.2322230538922154,
+  "raw_access_gap_health": 3.256447255095705,
+  "raw_access_gap_education": 1.1912733306294332,
+  "raw_access_gap_extension": 2.8601602396474832,
   "worst_10_municipios": [
     {
-      "NM_MUN": "Nova Cantu",
-      "pop_rural": 2291.0,
+      "NM_MUN": "Tibagi",
+      "pop_rural": 7406.0,
       "composite_pct": 0.2506265664160401
     },
     {
@@ -19,43 +19,43 @@
       "composite_pct": 0.5012531328320802
     },
     {
-      "NM_MUN": "Tibagi",
-      "pop_rural": 7406.0,
+      "NM_MUN": "Santa Helena",
+      "pop_rural": 7411.0,
       "composite_pct": 0.7518796992481203
     },
     {
-      "NM_MUN": "Santana do Itararé",
-      "pop_rural": 1554.0,
+      "NM_MUN": "Capanema",
+      "pop_rural": 5856.0,
       "composite_pct": 1.0025062656641603
     },
     {
-      "NM_MUN": "Santa Helena",
-      "pop_rural": 7411.0,
+      "NM_MUN": "Serranópolis do Iguaçu",
+      "pop_rural": 1901.0,
       "composite_pct": 1.2531328320802004
-    },
-    {
-      "NM_MUN": "Salto do Itararé",
-      "pop_rural": 1192.0,
-      "composite_pct": 1.5037593984962405
-    },
-    {
-      "NM_MUN": "Mercedes",
-      "pop_rural": 2482.0,
-      "composite_pct": 1.7543859649122806
-    },
-    {
-      "NM_MUN": "Altamira do Paraná",
-      "pop_rural": 1646.0,
-      "composite_pct": 2.0050125313283207
     },
     {
       "NM_MUN": "Entre Rios do Oeste",
       "pop_rural": 1213.0,
+      "composite_pct": 1.5037593984962405
+    },
+    {
+      "NM_MUN": "Nova Cantu",
+      "pop_rural": 2291.0,
+      "composite_pct": 1.7543859649122806
+    },
+    {
+      "NM_MUN": "Pérola d'Oeste",
+      "pop_rural": 2645.0,
+      "composite_pct": 2.0050125313283207
+    },
+    {
+      "NM_MUN": "Rio Negro",
+      "pop_rural": 5589.0,
       "composite_pct": 2.2556390977443606
     },
     {
-      "NM_MUN": "Candói",
-      "pop_rural": 6650.0,
+      "NM_MUN": "Barracão",
+      "pop_rural": 2441.0,
       "composite_pct": 2.506265664160401
     }
   ],

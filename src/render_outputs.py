@@ -87,7 +87,7 @@ def render_static(gdf: gpd.GeoDataFrame) -> None:
     ax.set_title(
         "Rural service access in Paraná, Brazil\n"
         "Composite E2SFCA: primary care (CNES), rural schools (INEP), "
-        "extension stations (IDR-PR)\n"
+        "extension offices (IDR-PR)\n"
         f"n = {len(ranked)} municipalities ranked · Censo 2022 · "
         "β=30 km Gaussian decay, d₀=50 km catchment",
         loc="left",

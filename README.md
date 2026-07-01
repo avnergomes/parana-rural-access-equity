@@ -12,9 +12,9 @@ A reproducible spatial equity analysis using open data (IBGE, CNES, INEP, IDR-Pa
 
 ## Quick answer
 
-> **73 of Paraná's municipalities (the bottom quintile of 364 ranked) house about 1 in 6 of the state's rural residents, 196,356 people, with the weakest combined access to primary care, rural schools, and agricultural extension.** In that worst-served fifth, per-capita access to primary care and rural schooling runs roughly 2.2 to 2.3 times below the best-served fifth.
+> **73 of Paraná's municipalities (the bottom quintile of 364 ranked) house about 1 in 4 of the state's rural residents, 338,499 people, with the weakest combined access to primary care, rural schools, and agricultural extension.** In that worst-served fifth, population-weighted per-capita access lags the best-served fifth by 3.3x for primary care and 2.9x for agricultural extension, while rural schooling is closer, at 1.2x.
 
-They cluster in the Centro-Sul and Campos Gerais interior (Tibagi, Candói, Altamira do Paraná), the Norte Pioneiro border, and small Costa Oeste municipios on the Itaipu reservoir.
+The worst 10 are Tibagi, Pato Bragado, Santa Helena, Capanema, Serranópolis do Iguaçu, Entre Rios do Oeste, Nova Cantu, Pérola d'Oeste, Rio Negro, and Barracão. Geographically they split between Tibagi in the Campos Gerais interior and a strong Costa Oeste / Sudoeste cluster along the Itaipu reservoir and the Paraguay/Argentina border.
 
 Bottom quintile choropleth: see `output/choropleth_access_score.png` and `output/interactive_map.html`.
 
@@ -53,7 +53,7 @@ Then open `output/interactive_map.html` in a browser, or reproduce interactively
 | IBGE | Censo 2022 — populacao rural/urbana por municipio (SIDRA 9923) | CC0 | `src/data_ibge.py` |
 | Ministério da Saúde | CNES — atenção básica (PR), via API de dados abertos | Public domain | `src/data_cnes.py` |
 | INEP | Censo Escolar 2024 microdata — escolas rurais (PR) | Public domain | `src/data_inep.py` |
-| IDR-Paraná | 22 Núcleos Regionais (curated CSV) | Public data | `src/data_ater.py` |
+| IDR-Paraná | Official unit shapefile (Unidades_IDR_UTM), extension units only: 414 offices (392 Unidade Municipal de Extensão + 22 Unidade Regional de Extensão) | Public data | `src/data_ater.py` |
 
 _Exact URLs and version numbers are pinned in `src/config.py`. OSM road-network isochrones are scoped for a v2 (see `docs/future_work.md`); the MVP uses haversine great-circle distance._
 
@@ -114,6 +114,8 @@ parana-rural-access-equity/
 ## Português (resumo executivo)
 
 **Quais dos 399 municípios do Paraná são menos servidos por saúde, educação rural e extensão rural, considerando sua população rural?**
+
+**Resposta rápida:** 73 municípios (o quintil inferior de 364 avaliados) concentram cerca de 1 em 4 dos residentes rurais do estado, 338.499 pessoas, com o pior acesso combinado a atenção primária, escolas rurais e extensão rural. Nesse quinto pior servido, o acesso per capita fica 3,3x abaixo para saúde e 2,9x para extensão, enquanto a escola rural é 1,2x. A camada de extensão usa o shapefile oficial de unidades do IDR-Paraná (Unidades_IDR_UTM), filtrado só para unidades de extensão: 414 escritórios (392 municipais + 22 regionais).
 
 Análise espacial reprodutível com dados abertos (IBGE, CNES, INEP, IDR-Paraná) e ferramentas abertas (Python + GeoPandas). Todo o pipeline roda em cerca de 20 minutos em uma máquina padrão.
 
